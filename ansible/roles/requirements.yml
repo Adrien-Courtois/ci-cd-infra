@@ -3,3 +3,7 @@ roles:
 # https://github.com/nginxinc/ansible-role-nginx
   - name: nginxinc.nginx
     version: 0.24.0
+
+# https://github.com/nginxinc/ansible-role-nginx-config
+  - name: nginxinc.nginx_config
+    version: 0.7.0
