@@ -13,6 +13,7 @@ Un fichier `.env` est nécésaire à la racine du projet avec une variable `SSH_
 
 Lancer le playbook ansible
 ```
+ansible-galaxy install -r roles/requirements.yml
 ansible-playbook -i inventories/production/hosts -t TAG site.yml
 ```
 

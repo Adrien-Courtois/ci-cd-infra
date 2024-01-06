@@ -1,2 +1,3 @@
 ---
 - import_playbook: playbooks/www.yml
+- import_playbook: playbooks/gitlab.yml

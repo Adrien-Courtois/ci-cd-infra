@@ -1,0 +1,33 @@
+---
+- name: gitlab
+  hosts: gitlab
+  tags:
+    - gitlab
+
+  pre_tasks:
+    - name: apt update
+      ansible.builtin.apt:
+        update_cache: true
+  
+  tasks:
+    - name: Install pre-package
+      ansible.builtin.package:
+        name: curl
+        state: present
+
+    - name: Download gitlab install
+      ansible.builtin.get_url:
+        url: https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh
+        dest: /tmp/gitlab.sh
+        mode: '0550'
+
+    - name: Exec gitlab install
+      ansible.builtin.shell: bash /tmp/gitlab.sh
+        
+    - name: Install gitlab
+      ansible.builtin.package:
+        name: gitlab-ce=16.7.0-ce.0
+        state: present
+      environment:
+        GITLAB_ROOT_PASSWORD: "{{gitlab_root_pass}}"
+        EXTERNAL_URL: "{{gitlab_external_url}}"
