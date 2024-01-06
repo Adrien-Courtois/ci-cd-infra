@@ -1,0 +1,19 @@
+---
+- name: www
+  hosts: www
+  tags:
+    - www
+
+  pre_tasks:
+    - name: apt update
+      ansible.builtin.apt:
+        update_cache: true
+  
+  tasks:
+    - name: nginx
+      import_role:
+        name: nginxinc.nginx
+
+    - name: nginx conf
+      import_role:
+        name: nginxinc.nginx_config

@@ -1,0 +1,5 @@
+---
+roles:
+# https://github.com/nginxinc/ansible-role-nginx
+  - name: nginxinc.nginx
+    version: 0.24.0

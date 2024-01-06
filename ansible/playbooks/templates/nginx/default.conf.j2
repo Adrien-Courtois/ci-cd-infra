@@ -1,0 +1,17 @@
+# {{ ansible_managed }}
+server {
+    listen 0.0.0.0:80 default;
+
+    root /srv/www/default/;
+
+    index index.html;
+
+    server_name _;
+
+    access_log off;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+}
