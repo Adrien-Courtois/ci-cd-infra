@@ -17,3 +17,18 @@
     - name: nginx conf
       import_role:
         name: nginxinc.nginx_config
+
+    - name: Install nfs-client
+      ansible.builtin.package:
+        name: nfs-common
+        state: present
+
+    - name: Add nfs mount on fstab
+      ansible.builtin.lineinfile:
+        path: /etc/fstab
+        regexp: "^{{nfs_server_ip}}"
+        line: "{{nfs_server_ip}}:{{nfs_dir}}    {{nfs_dir}}   nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0"
+
+    - name: Mount NFS
+      ansible.builtin.shell:
+        cmd: mount -a
