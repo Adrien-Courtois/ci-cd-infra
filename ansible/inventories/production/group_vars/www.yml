@@ -1,6 +1,6 @@
 ### NGINX ###
+nginx_config_http_template_enable: true
 nginx_config_http_template:
-  default:
-    template_file: templates/nginx/default.conf.j2
-    conf_file_name: "default.conf"
-    conf_file_location: /etc/nginx/sites-enabled/
+  - template_file: templates/nginx/default.conf.j2
+    deployment_location: /etc/nginx/sites-enabled/default.conf
+  
