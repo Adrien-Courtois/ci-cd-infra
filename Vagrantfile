@@ -19,7 +19,8 @@ Vagrant.configure("2") do |config|
     gitlab.vm.box = "debian/bullseye64"
     gitlab.vm.hostname = "gitlab-pipeline"
     gitlab.vm.box_url = "debian/bullseye64"
-    gitlab.vm.network :private_network, ip: "192.168.56.2"
+    # gitlab.vm.network :private_network, ip: "192.168.56.2"
+    gitlab.vm.network :public_network, ip: "192.168.1.102"
     gitlab.vm.provider :virtualbox do |v|
       v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
       v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
@@ -38,7 +39,8 @@ Vagrant.configure("2") do |config|
     webserver.vm.box = "debian/bullseye64"
     webserver.vm.hostname = "webserver"
     webserver.vm.box_url = "debian/bullseye64"
-    webserver.vm.network :private_network, ip: "192.168.56.3"
+    # webserver.vm.network :private_network, ip: "192.168.56.3"
+    webserver.vm.network :public_network, ip: "192.168.1.103"
     webserver.vm.provider :virtualbox do |v|
       v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
       v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
