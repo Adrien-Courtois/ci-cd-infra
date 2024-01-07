@@ -1,3 +1,4 @@
+![Distribution](https://img.shields.io/badge/Distribution-debian%20bullseye-red)
 # Pipeline CI/CD
 
 ### Vagrant
