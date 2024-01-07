@@ -23,3 +23,7 @@ Le `TAG` peut être :
 - www
 
 Ou rien si l'on souhaite l'exécuter sur tous les serveurs
+
+### TO-DO
+
+- [ ] Voir pour automatiser un token sur le serveur gitlab et le runner

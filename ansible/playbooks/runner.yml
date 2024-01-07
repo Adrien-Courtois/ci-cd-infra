@@ -1,0 +1,30 @@
+---
+- name: runner
+  hosts: runner
+  tags:
+    - runner
+
+  pre_tasks:
+    - name: apt update
+      ansible.builtin.apt:
+        update_cache: true
+  
+  tasks:
+    - name: Install pre-package
+      ansible.builtin.package:
+        name: curl
+        state: present
+
+    - name: Download gitlab runner install
+      ansible.builtin.get_url:
+        url: https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh
+        dest: /tmp/runner.sh
+        mode: '0550'
+
+    - name: Exec gitlab runner install
+      ansible.builtin.shell: bash /tmp/runner.sh
+        
+    - name: Install gitlab runner 
+      ansible.builtin.package:
+        name: gitlab-runner
+        state: present
