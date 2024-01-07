@@ -14,6 +14,7 @@ Un fichier `.env` est nécésaire à la racine du projet avec une variable `SSH_
 
 Lancer le playbook ansible
 ```
+cd ansible
 ansible-galaxy install -r roles/requirements.yml
 ansible-playbook -i inventories/production/hosts -t TAG site.yml
 ```
@@ -26,4 +27,4 @@ Ou rien si l'on souhaite l'exécuter sur tous les serveurs
 
 ### TO-DO
 
-- [ ] Voir pour automatiser un token sur le serveur gitlab et le runner
+- [ ] Voir pour automatiser un token sur le serveur gitlab et le [runner](https://docs.gitlab.com/16.7/ee/api/users.html#create-a-runner-linked-to-a-user)
