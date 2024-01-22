@@ -1,0 +1,61 @@
+---
+- name: nfs
+  hosts: nfs-client,nfs-server
+  vars_files:
+    - "./vars/nfs.yml"
+  tags:
+    - nfs
+
+  pre_tasks:
+    - name: apt update
+      ansible.builtin.apt:
+        update_cache: true
+
+  tasks:
+    - name: Install nfs-client
+      ansible.builtin.package:
+        name: nfs-common
+        state: present
+      hosts: nfs-client
+    
+    - name: Install nfs-server
+      ansible.builtin.package:
+        name: nfs-kernel-server
+        state: present
+      hosts: nfs-server
+
+    - name: Create nfs directory
+      ansible.builtin.file:
+        path: "{{ nfs_client_dir }}"
+        state: directory
+        mode: '0755'
+        owner: "nobody"
+        group: "nogroup"
+      hosts: nfs-client
+
+    - name: Create nfs directory
+      ansible.builtin.file:
+        path: "{{ nfs_server_dir }}"
+        state: directory
+        mode: '0755'
+        owner: "nobody"
+        group: "nogroup"
+      hosts: nfs-server
+
+    - name: Create /etc/exports
+      ansible.builtin.template:
+        src: templates/nfs/exports.j2
+        dest: /etc/exports
+      tags: nfs-server
+
+    - name: Add nfs mount on fstab
+      ansible.builtin.lineinfile:
+        path: /etc/fstab
+        regexp: "^{{nfs_server_ip}}"
+        line: "{{nfs_server_ip}}:{{nfs_server_dir}}    {{nfs_client_dir}}   nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0"
+      hosts: nfs-client
+        
+    - name: Mount NFS
+      ansible.builtin.shell:
+        cmd: mount -a
+      hosts: nfs-client

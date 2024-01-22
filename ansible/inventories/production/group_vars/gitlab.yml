@@ -1,4 +1,2 @@
 gitlab_external_url: "http://192.168.1.102"
 gitlab_root_pass: "fjbN*U^x$yx5K&"
-nfs_client_ip: "192.168.1.103" 
-nfs_dir: "/datanfs"

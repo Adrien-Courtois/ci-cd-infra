@@ -1,0 +1,2 @@
+nfs_server_dir: "/datanfs"
+nfs_client_dir: "/srv/www/default"
