@@ -11,8 +11,13 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
     apt-get install -y figlet
+    echo -e "\033[1;33m" > /etc/motd
+    figlet $(hostname) >> /etc/motd
+    echo -e "\033[0m" >> /etc/motd
     mkdir -p "/root/.ssh"
     echo #{ENV['SSH_PUBKEY']} > /root/.ssh/authorized_keys
+    sed -i 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes/g' /etc/ssh/sshd_config
+    service ssh restart
   SHELL
 
   config.vm.define "gitlab-pipeline" do |gitlab|
@@ -28,11 +33,6 @@ Vagrant.configure("2") do |config|
       v.customize ["modifyvm", :id, "--name", "gitlab-pipeline"]
       v.customize ["modifyvm", :id, "--cpus", "6"]
     end
-    gitlab.vm.provision "shell", inline: <<-SHELL
-      sed -i 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes/g' /etc/ssh/sshd_config
-      figlet "gitlab-pipeline" > /etc/motd
-      service ssh restart
-    SHELL
   end
 
   config.vm.define "webserver" do |webserver|
@@ -50,12 +50,7 @@ Vagrant.configure("2") do |config|
     end
     webserver.vm.provision "shell", inline: <<-SHELL
       sed -i 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes/g' /etc/ssh/sshd_config
-      figlet "webserver" > /etc/motd
       service ssh restart
     SHELL
-  end
-
-  config.vm.provider "virtualbox" do |vb|
-    vb.customize ["modifyvm", :id, "--cableconnected1", "on"]
   end
 end

@@ -36,21 +36,23 @@
       ansible.builtin.package:
         name: nfs-kernel-server
         state: present
+      tags: nfs
 
     - name: Create nfs directory
       ansible.builtin.file:
-        path: {nfs_dir}
+        path: "{{ nfs_dir }}"
         state: directory
         mode: '0755'
-        owner: nobody
-        group: nogroup
+      tags: nfs
 
     - name: Create /etc/exports
       ansible.builtin.template:
         src: templates/nfs/exports.j2
         dest: /etc/exports
+      tags: nfs
 
     - name: Restart service nfs
       ansible.builtin.service:
         name: nfs-kernel-server
         state: restarted
+      tags: nfs
