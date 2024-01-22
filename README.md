@@ -5,6 +5,7 @@
 
 Lancer les VM
 ```
+vagrant plugin install vagrant-env
 vagrant up
 ```
 
