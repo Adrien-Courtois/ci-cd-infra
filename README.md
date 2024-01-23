@@ -29,3 +29,5 @@ Ou rien si l'on souhaite l'exécuter sur tous les serveurs
 ### TO-DO
 
 - [ ] Voir pour automatiser un token sur le serveur gitlab et le [runner](https://docs.gitlab.com/16.7/ee/api/users.html#create-a-runner-linked-to-a-user)
+- [ ] Modifier la conf nginx pour www-data
+- [ ] Créer le répertoire de nginx (`/srv/www/default`)
