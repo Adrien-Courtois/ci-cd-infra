@@ -3,7 +3,7 @@
 
 ### Vagrant
 
-Lancer les VM
+Lancer les VMs
 ```
 vagrant plugin install vagrant-env
 vagrant up
